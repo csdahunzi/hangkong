@@ -1,0 +1,647 @@
+*     ==================================================================
+*     rw(1)--rw(29) contain machine-dependent parameters.
+*     ------------------------------------------------------------------
+      eps       = rw(  1) ! machine precision.  IEEE DP  2.22e-16
+      eps0      = rw(  2) ! eps**(4/5)          IEEE DP  3.00e-13
+      eps1      = rw(  3) ! eps**(2/3)          IEEE DP  3.67e-11
+      eps2      = rw(  4) ! eps**(1/2)          IEEE DP  1.49e-08
+      eps3      = rw(  5) ! eps**(1/3)          IEEE DP  6.05e-06
+      eps4      = rw(  6) ! eps**(1/4)          IEEE DP  1.22e-04
+      eps5      = rw(  7) ! eps**(1/5)          IEEE DP  7.40e-04
+      flMax     = rw(  8) ! est. of the largest pos. real
+      flMin     = rw(  9) ! smallest positive real
+      rtundf    = rw( 10) ! sqrt of flmin
+*     ------------------------------------------------------------------
+*     rw(51)--rw(150): optional parameters set via the specs file.
+*     ------------------------------------------------------------------
+      tolOptFP  = rw( 51) ! Minor Phase 1 Opt tol
+      tolOptQP  = rw( 52) ! Minor Phase 2 Opt tol
+      tolOptNP  = rw( 53) ! Major Optimality tolerance
+      tolCG     = rw( 54) ! cg tolerance
+*-->            = rw( 55) !
+      tolx      = rw( 56) ! Minor feasibility tolerance
+      tolCon    = rw( 57) ! Major feasibility tolerance
+*-->            = rw( 58) !
+*-->            = rw( 59) !
+      tolpiv    = rw( 60) ! excludes small elements of y
+      tolrow    = rw( 61) ! tolerance for the row error
+      tCrash    = rw( 62) ! crash tolerance
+      Utol1m    = rw( 63) ! abs tol for small diag of U in LU mod
+      Utol2m    = rw( 64) ! rel tol for small diag of U in LU mod
+      tolSwp    = rw( 65) ! User-defined LU swap tolerance
+      tolFac    = rw( 66) ! LU factor tolerance = user-defined Lmax1
+      tolUpd    = rw( 67) ! LU update tolerance = user-defined Lmax2
+*-->            = rw( 68) !
+      rdummy    = rw( 69) ! definition of an 'unset' double value
+      infBnd    = rw( 70) ! definition of an infinite bound
+      bigFx     = rw( 71) ! unbounded objective
+      bigdx     = rw( 72) ! unbounded step
+      epsrf     = rw( 73) ! relative function precision
+*-->            = rw( 74) !
+*-->            = rw( 75) !
+      fdint(1)  = rw( 76) ! (1) forwrd diff. interval
+      fdint(2)  = rw( 77) ! (2) cntrl  diff. interval
+*-->            = rw( 78) !
+      maxTime   = rw( 79) ! Time limit
+      xdlim     = rw( 80) ! Step limit
+      vilim     = rw( 81) ! violation limit
+*-->            = rw( 82) !
+      etarg     = rw( 83) ! quasi-Newton QP rg tolerance
+      wolfeG    = rw( 84) ! Wolfe line search gradient tol
+      condZHZbnd= rw( 85) ! bound on the condition of ZHZ
+      condZmax0 = rw( 86) ! Initial bound on the condition est of Z
+      condUmax  = rw( 87) ! max cond estimator for U with H = U'U
+      wtInf0    = rw( 88) ! initial infeasibility weight
+      xPen0     = rw( 89) ! initial penalty parameter
+      wtMax     = rw( 90) ! max     infeasibility weight
+      proxWeight= rw( 91) ! Proximal-point weight
+      scltol    = rw( 92) ! scale tolerance
+*-->            = rw( 93) !
+*-->            = rw( 94) !
+      Aijtol    = rw( 95) ! zero Aij tolerance
+      bStruc(1) = rw( 96) ! default lower bound on x
+      bStruc(2) = rw( 97) ! default upper bound on x
+*     ------------------------------------------------------------------
+*     rw(151)--rw(180) contain  parmLU  parameters for LUSOL.
+*     This could be part of an f90 or c structure.
+*     ------------------------------------------------------------------
+      Lmax1     = rw(151) ! max L-multiplier in factor
+      Lmax2     = rw(152) ! max L-multiplier in update
+      small     = rw(153) ! defn of small real
+      Utol1     = rw(154) ! abs tol for small diag of U
+      Utol2     = rw(155) ! rel tol for small diag of U
+      Uspace    = rw(156) ! limit on waste space in U
+      Dens1     = rw(157) ! switch to search maxcol columns and no rows
+      Dens2     = rw(158) ! switch to dense LU
+*-->            = rw(159) !
+      amax      = rw(160) ! maximum element in  A
+      Lmax      = rw(161) ! maximum multiplier in L
+      Umax      = rw(162) ! maximum element in U
+      dUmax     = rw(163) ! maximum diagonal in  U
+      dUmin     = rw(164) ! minimum diagonal in  U
+*-->            = rw(165) !
+*-->            = rw(166) !
+*-->            = rw(167) !
+*-->            = rw(168) !
+*-->            = rw(169) !
+      resid     = rw(170) ! lu6sol: residual
+*     ------------------------------------------------------------------
+*     rw(181)--rw(199) global parameters.
+*     ------------------------------------------------------------------
+      tolDpp    = rw(181) ! default Lmax1 for TPP
+      tolDcp    = rw(182) ! default Lmax1 for TCP
+      tolDup    = rw(183) ! default Lmax2
+      toldj(1)  = rw(184) ! phase 1 dj tol for p.p
+      toldj(2)  = rw(185) ! phase 2 dj tol for p.p
+      toldj(3)  = rw(186) ! current optimality tol
+      tolDrp    = rw(187) ! default Lmax1 for TRP
+      tolDdp    = rw(188) ! default Lmax1 for TDP
+*-->            = rw(189) !
+      Umin      = rw(190) ! saved smallest U diagonal
+*               = rw(191) !
+      rtcondZbnd= rw(192) ! square root of the max condition est of Z
+*               = rw(193) !
+*-->            = rw(194) !
+*     ------------------------------------------------------------------
+*     rw(421)--rw(450) information for solvers calling SNOPT
+*     ------------------------------------------------------------------
+      ObjNP     = rw(421) ! The  objective (minimized or maximized)
+      piNorm    = rw(422) ! Lagrange multiplier norm
+      xNorm     = rw(423) ! Norm of the variables
+      wtInf     = rw(424) ! To return final infeasibility weight
+*-->            = rw(425) !
+*-->            = rw(426) !
+      Binf1     = rw(427) ! Largest bound infeasibility (  scaled)
+      Dinf1     = rw(428) ! Largest dual  infeasibility (  scaled)
+      Binf      = rw(429) ! Largest bound infeasibility (unscaled)
+      Dinf      = rw(430) ! Largest dual  infeasibility (unscaled)
+*-->            = rw(431) !
+      maxVi     = rw(432) ! Inf norm of the constraint violation
+      sInf      = rw(433) ! Sum of infeasibilities
+      objLin    = rw(434) ! Linear objective
+      fObj      = rw(435) ! Objective function
+      PenNrm    = rw(436) ! Norm of penalty parameters
+*-->            = rw(437) !
+*-->            = rw(438) !
+*-->            = rw(439) !
+*-->            = rw(440) !
+*-->  ctRefTol  = rw(441) ! snctrl
+*-->            = rw(442) !
+*-->            = rw(443) !
+*-->            = rw(444) !
+*-->            = rw(445) !
+*-->            = rw(446) !
+*-->            = rw(447) !
+*-->            = rw(448) !
+*-->            = rw(449) !
+*-->            = rw(450) !
+*     -----------------------------------------------------------------
+*     rw(451)--rw(499) timing information
+*     -----------------------------------------------------------------
+      tlast( 1) = rw(451) !
+      tlast( 2) = rw(452) !
+      tlast( 3) = rw(453) !
+      tlast( 4) = rw(454) !
+      tlast( 5) = rw(455) !
+      tlast( 6) = rw(456) ! not in use
+      tlast( 7) = rw(457) ! not in use
+      tlast( 8) = rw(458) ! not in use
+      tlast( 9) = rw(459) ! not in use
+      tlast(10) = rw(460) ! not in use
+      tsum( 1)  = rw(461) ! Input time
+      tsum( 2)  = rw(462) ! Solve time
+      tsum( 3)  = rw(463) ! Output time
+      tsum( 4)  = rw(464) ! Constraint functions
+      tsum( 5)  = rw(465) ! Nonlinear objective
+      tsum( 6)  = rw(466) ! not in use
+      tsum( 7)  = rw(467) ! not in use
+      tsum( 8)  = rw(468) ! not in use
+      tsum( 9)  = rw(469) ! not in use
+      tsum(10)  = rw(470) ! not in use
+*-->            = rw(471) !
+*     ==================================================================
+*     Integer workspace.
+*     iw(1)--iw(50): machine-dependent parameters or dimensions.
+*     ==================================================================
+*-->            = iw(  1) !
+      maxru     = iw(  2) ! maxru+1 is the start of SNOPT part of rw
+      maxrw     = iw(  3) ! end of SNOPT part of rw
+      maxiu     = iw(  4) ! maxiu+1 is the start of SNOPT part of iw
+      maxiw     = iw(  5) ! end of SNOPT part of iw
+      maxcu     = iw(  6) ! maxcu+1 is the start of SNOPT part of cw
+      maxcw     = iw(  7) ! end of SNOPT part of cw
+*-->            = iw(  8) !
+      iStdi     = iw(  9) ! Standard Input
+      iStdo     = iw( 10) ! Standard Output
+      iSpecs    = iw( 11) ! Specs (options) file
+      iPrint    = iw( 12) ! Print (Log) file
+      iSumm     = iw( 13) ! Summary file
+*-->            = iw( 14) !
+*     ------------------------------------------------------------------
+*     Dimensions
+*     ------------------------------------------------------------------
+      n         = iw( 15) ! copy of the number of columns
+      m         = iw( 16) ! copy of the number of rows
+      ne        = iw( 17) ! copy of the number of nonzeros in Jcol
+*-->            = iw( 18) !
+*-->            = iw( 19) !
+      negCon    = iw( 20) ! # of nonzero elems in J
+      nnJac     = iw( 21) ! # of user-defined Jacobian  variables
+      nnObjU    = iw( 22) ! # of user-defined objective variables
+      nnCon     = iw( 23) ! # of user-defined nonlinear constraints
+      nnL       = iw( 24) !   max( nnObjU, nnJac )
+*-->            = iw( 25) !
+      ngObj     = iw( 26) ! # of working objective variables
+      nnH       = iw( 27) ! # QP Hessian columns
+      lenR      = iw( 28) ! R(lenR) is the reduced Hessian factor
+*-->            = iw( 29) !
+*-->            = iw( 30) !
+      mincu1    = iw( 31) ! Start of first  user partition of cw
+      maxcu1    = iw( 32) ! End   of first  user partition of cw
+      mincu2    = iw( 33) ! Start of second user partition of cw
+      maxcu2    = iw( 34) ! End   of second user partition of cw
+*-->            = iw( 35) !
+      miniu1    = iw( 36) ! Start of first  user partition of iw
+      maxiu1    = iw( 37) ! End   of first  user partition of iw
+      miniu2    = iw( 38) ! Start of second user partition of iw
+      maxiu2    = iw( 39) ! End   of second user partition of iw
+*-->            = iw( 40) !
+      minru1    = iw( 41) ! Start of first  user partition of rw
+      maxru1    = iw( 42) ! End   of first  user partition of rw
+      minru2    = iw( 43) ! Start of second user partition of rw
+      maxru2    = iw( 44) ! End   of second user partition of rw
+*-->            = iw( 45) !
+*-->            = iw( 46) !
+      mincw     = iw( 47) ! minimum length of cw
+      miniw     = iw( 48) ! minimum length of iw
+      minrw     = iw( 49) ! minimum length of rw
+*-->            = iw( 50) !
+*     ------------------------------------------------------------------
+*     iw(51)--iw(150): optional parameters set via the specs file.
+*     ------------------------------------------------------------------
+      nColH     = iw( 51) ! Leading # of nonzeros in user Hx
+      maxR      = iw( 52) ! max columns of R
+      maxS      = iw( 53) ! max # of superbasics
+      mQNmods   = iw( 54) ! (ge 0) max # of BFGS updates
+      QPsolver  = iw( 55) ! = 0:1:2   => QPChol:CG:QN QP solver
+      eMode     = iw( 56) ! >0   => use elastic mode
+*-->            = iw( 57) !
+      kchk      = iw( 58) ! check (row) frequency
+      kfac      = iw( 59) ! factorization frequency
+      ksav      = iw( 60) ! save basis map
+      klog      = iw( 61) ! log/print frequency
+      kSumm     = iw( 62) ! Summary print frequency
+      kDegen    = iw( 63) ! max. expansions of featol
+      kReset    = iw( 64) ! Hessian frequency
+*-->            = iw( 65) !
+      mFlush    = iw( 66) ! Hessian flush
+      mQNskips  = iw( 67) ! max number of QNskips
+*-->            = iw( 68) !
+      lvlStart  = iw( 69) ! = 0:1:2:3 => cold:warm:basis:hot start
+      lvlDer    = iw( 70) ! = 0,1,2,3 or 4, the derivative level
+      lvlSys    = iw( 71) ! > 0   => print system info
+      lvlHes    = iw( 72) ! 0,1,2 => LM, FM, Exact Hessian
+      lvlObjE   = iw( 73) ! Elastic objective definition
+*-->            = iw( 74) !
+      lvlScale  = iw( 75) ! scale option
+      lvlSrch   = iw( 76) ! >0    => use derivatives in the line search
+      lvlPre    = iw( 77) ! >0    => QN preconditioned CG
+      lvlVer    = iw( 78) ! Verify level
+      lvlPPm    = iw( 79) ! 1(2)-norm proximal point method for x0
+      lvlPiv    = iw( 80) ! 0(1 2 3) LU partial(rook complete diagonal) pivoting
+      lprPrm    = iw( 81) ! >0    => parms are printed
+      lprSch    = iw( 82) ! line search debug starting itn
+      lprScl    = iw( 83) ! >0    => print the scales
+      lprSol    = iw( 84) ! >0    => print the solution
+      lprDbg    = iw( 85) ! >0    => private debug print
+*-->            = iw( 86) !
+      minmax    = iw( 87) ! 1, 0, -1  => MIN, FP, MAX
+      iCrash    = iw( 88) ! Crash option
+      itnlim    = iw( 89) ! limit on total iterations
+      mMajor    = iw( 90) ! limit on major iterations
+      mMinor    = iw( 91) ! limit on minor iterations
+      mjrPrtlvl = iw( 92) ! Major print level
+      mnrPrtlvl = iw( 93) ! Minor print level
+      nParPr    = iw( 94) ! # of partial pricing sections
+      mNewSB    = iw( 95) ! maximum # of new superbasics per major
+*-->            = iw( 96) !
+      cgItmx    = iw( 97) ! CG iteration limit
+*-->            = iw( 98) !
+      nParPrLP  = iw( 99) ! # of partial pricing sections for LPs
+      nParPrQP  = iw(100) ! # of partial pricing sections for QPs
+      nParPrU   = iw(101) ! user-defined # of partial pricing sections
+*-->            = iw(102) !
+      ObjRow    = iw(103) ! Objective row of user-defined F
+      DerOpt    = iw(104) ! 0, 1, 2 => derivative option
+      lDenJ     = iw(105) ! 1(2)    => CUTEr dense(sparse) Jacobian
+      MPSerr    = iw(106) ! maximum # errors in MPS data
+      mLst      = iw(107) ! maximum # lines  of MPS data
+      nProb     = iw(108) ! problem number
+*-->            = iw(109) !
+      jverif(1) = iw(110) ! start col for obj.    derivative checking
+      jverif(2) = iw(111) ! stop  col for obj.    derivative checking
+      jverif(3) = iw(112) ! start col for constr. derivative checking
+      jverif(4) = iw(113) ! stop  col for constr. derivative checking
+      jverif(5) = iw(114) ! start col for Hessian checking
+      jverif(6) = iw(115) ! stop  col for Hessian checking
+      stickyOp  = iw(116) ! > 0 => optional parameters are sticky
+*-->            = iw(117) !
+*-->            = iw(118) !
+*-->            = iw(119) !
+      iBack     = iw(120) ! backup file
+      iDump     = iw(121) ! dump file
+      iLoadB    = iw(122) ! load file
+      iMPS      = iw(123) ! MPS file
+      iNewB     = iw(124) ! new basis file
+      iInsert   = iw(125) ! insert file
+      iOldB     = iw(126) ! old basis file
+      iPunch    = iw(127) ! punch file
+*-->            = iw(128) !
+*-->            = iw(129) !
+      iReport   = iw(130) ! report file
+      iSoln     = iw(131) ! solution file
+*-->            = iw(132) !
+      maxm      = iw(133) ! Estimate of the number of rows
+      maxn      = iw(134) ! Estimate of the number of columns
+      maxne     = iw(135) ! Estimate of the number of elements
+*     ------------------------------------------------------------------
+*     iw(151)--iw(180) contain luparm parameters for LUSOL.
+*     ------------------------------------------------------------------
+      nout      = iw(151) ! unit # for printed messages
+      LUprnt    = iw(152) ! print level in LU routines
+      maxcol    = iw(153) ! lu1fac: max. # columns
+*-->            = iw(154) !
+*-->            = iw(155) !
+      TPivot    = iw(156) ! 0(1 2 3) LU Partl (Rook Compl. Diag) current
+*-->            = iw(157) !
+      keepLU    = iw(158) !
+*-->            = iw(159) !
+      iErr      = iw(160) ! LU error flag
+      nSing     = iw(161) ! # of singularities in w(*)
+      jsing     = iw(162) ! col. no. of last singularity
+      minlen    = iw(163) ! minimum recommended lenaLU
+      maxlen    = iw(164) !
+      nupdat    = iw(165) ! # of updates by lu8
+      nrank     = iw(166) ! # of nonempty rows of U
+      nDens1    = iw(167) ! # cols undone when dnsty>   =Dens1
+      nDens2    = iw(168) ! # cols undone when dnsty>   =Dens2
+      jUmin     = iw(169) ! col of B corres. to dUmin
+      numL0     = iw(170) ! # columns in initial  L
+      lenL0     = iw(171) ! size of L0
+      lenU0     = iw(172) ! size of initial  U
+      lenL      = iw(173) ! size of current  L
+      lenU      = iw(174) ! size of current  U
+      lrow      = iw(175) ! length of row file
+      ncp       = iw(176) ! no. of compressions
+      mersum    = iw(177) ! tot. of Markowitz merit counts
+      nUtri     = iw(178) ! lu1fac: # of tri. rows in U
+      nLtri     = iw(179) ! lu1fac: # of tri. rows in L
+*-->            = iw(180) !
+*     ------------------------------------------------------------------
+*     iw(181)--iw(250) global variables.
+*     ------------------------------------------------------------------
+      lvlDif    = iw(181) ! 1(2) for forwd (cntrl) diffs
+      lvlTim    = iw(182) ! Timing level
+      gotFD     = iw(183) ! > 0 => some differences needed
+      gotG      = iw(184) ! > 0 => some exact derivatives provided
+      conJij    = iw(185) ! > 0 => constant Jacobian elements provided
+*-->            = iw(186) !
+      nHess     = iw(187) ! number of Hessian evaluations
+      Hvcalls   = iw(188) ! number of Hessian times vector products
+      nfCon(1)  = iw(189) ! calls to fCon: all modes
+      nfCon(2)  = iw(190) ! calls to fCon: modes = 1, 2 (known gCon)
+      nfCon(3)  = iw(191) ! calls to fCon: (forward differencing)
+      nfCon(4)  = iw(192) ! calls to fCon: (central differencing)
+*-->  nfTotal   = iw(193) ! calls to the function wrapper
+      nfObj(1)  = iw(194) ! calls to fObj: all modes
+      nfObj(2)  = iw(195) ! calls to fObj: modes = 1, 2 (known gObj)
+      nfObj(3)  = iw(196) ! calls to fObj: (forward differencing)
+      nfObj(4)  = iw(197) ! calls to fObj: (central differencing)
+*-->            = iw(198) !
+      minimize  = iw(199) ! (-1)(+1)    => (max)(min)
+*->             = iw(200) !
+*-->            = iw(201) !
+*-->            = iw(202) !
+*-->            = iw(203) !
+      iObj      = iw(204) ! position of the objective row in J
+      kObj      = iw(205) ! kBS(kObj) = jObj (= n + iObj).
+*-->            = iw(206) !
+      maxvi     = iw(207) ! index of maximum violation
+      qpMode    = iw(208) ! Current QP solver   (based on QPslvr)
+      preCon    = iw(209) ! Current precon mode (based on QPslvr)
+      nFac      = iw(210) ! # of LU factorizations
+      nBfac     = iw(211) ! # consecutive  `B' factorizes
+*-->            = iw(212) !
+      lenaLU    = iw(213) ! space allotted for LU factors
+      LUreq     = iw(214) ! Reason for refactorization
+      LUitn     = iw(215) ! number of itns since the last factorize
+      LUmod     = iw(216) ! number of LU mods since the last factorize
+*-->            = iw(217) !
+      printP    = iw(218) ! (on/off) log     file output status
+      printS    = iw(219) ! (on/off) summary file output status
+      linesP    = iw(220) ! # lines in log     file since last heading
+      linesS    = iw(221) ! # lines in summary file since last heading
+*-->            = iw(222) !
+      mnrHdP    = iw(223) ! >0 => Minor heading for Log file
+      mjrHdP    = iw(224) ! >0 => Major heading for Log file
+      mnrHdS    = iw(225) ! >0 => Minor heading for Summary file
+      mjrHdS    = iw(226) ! >0 => Major heading for Summary file
+*-->            = iw(227) !
+      iPrintx   = iw(228) ! Global value of iPrint
+      iSummx    = iw(229) ! Global value of iSumm
+      gotFac    = iw(230) ! >0 => Save the LU factors
+      gotHes    = iw(231) ! >0 => Save the reduced Hessian
+      gotScl    = iw(232) ! >0 => Save the scales
+      nNames    = iw(233) ! # of row and col. names
+*-->            = iw(234) !
+      qpStatus  = iw(235) ! QP user-routine call-status
+      npStatus  = iw(236) ! NP user-routine call-status
+      QNInfo    = iw(237) ! infoTag(1): QN update type
+      MdInfo    = iw(238) ! infoTag(2):
+      LSInfo    = iw(239) ! infoTag(3): Line search outcome
+      FPInfo    = iw(240) ! infoTag(4)
+      QPInfo    = iw(241) ! infoTag(5)
+      FDInfo    = iw(242) ! infoTag(6)
+      HDInfo    = iw(243) ! infoTag(7): Approximate Hessian type
+      iAlone    = iw(244) ! > 0    =>  stand-alone
+      iPage1    = iw(245) ! > 0    =>  Page 1
+      iPage2    = iw(246) ! > 0    =>  Page 2
+      nkx       = iw(247) ! dimension of kx and its inverse, kxN
+      nF        = iw(248) ! # of components of user-defined F
+      neG       = iw(249) ! # of components of user-defined G
+*-->            = iw(250) !
+*     ------------------------------------------------------------------
+*     iw(251)--iw(360) hold array addresses.
+*     ------------------------------------------------------------------
+      lkx       = iw(251) ! j  = kx (jN) => col j of Jcol is variable jN
+      lkxN      = iw(252) ! jN = kxN(j ) => col j of Jcol is variable jN
+*-->            = iw(253) !
+*-->            = iw(254) !
+*-->            = iw(255) !
+      lJcol     = iw(256) ! Jcol(ne)    = Constraint Jacobian by columns
+      llocJ     = iw(257) ! locJ(n+1)   = column pointers for indJ
+      lindJ     = iw(258) ! indJ(ne) holds the row indices for Jij
+*-->            = iw(259) !
+      llocG     = iw(260) ! locG(nlocG) = column pointers for indG
+      lindG     = iw(261) ! indG(neG) holds the row indices for gij
+      lnGlin    = iw(262) ! nGlin(j) = # linear elems in col j of gCon
+*-->            = iw(263) !
+*-->            = iw(264) ! used
+*-->            = iw(265) ! used
+      liGfun    = iw(266) ! iGfun(neG) row list of reordered G nonzeros
+      ljGvar    = iw(267) ! iGvar(neG) col list of reordered G nonzeros
+*-->            = iw(268) !
+      lbl       = iw(269) ! bl(nb)      = user-defined lower bounds for SNOPTA
+      lbu       = iw(270) ! bu(nb)      = user-defined upper-bounds for SNOPTA
+      lblQP     = iw(271) ! blQP(nb)    = working QP lower bounds
+      lbuQP     = iw(272) ! buQP(nb)    = working QP upper bounds
+      lblBS     = iw(273) ! blBS(mBS)   = lower bounds for xBS
+      lbuBS     = iw(274) ! buBS(mBS)   = upper bounds for xBS
+      lblSave   = iw(275) ! blSave(nb)  = copy of user bounds bl
+      lbuSave   = iw(276) ! buSave(nb)  = copy of user bounds bu
+      lpBS      = iw(277) ! pBS(mBS)    = search direction
+      lQPrhs    = iw(278) ! QPrhs(nrhs) rhs of QP constraints
+      lpi       = iw(279) ! pi(m)       = the pi-vector
+      lrc       = iw(280) ! rc(nb)      = the reduced costs
+*-->            = iw(281) !
+      lhs       = iw(282) ! the column state vector
+      leType    = iw(283) ! eType(nb) defines the elasticity of x(1:nb)
+      lfeasType = iw(284) ! feasType(mBS), feasibility types
+      leState   = iw(285) ! eState(nb), status of elastics
+*-->            = iw(286) !
+      ldx       = iw(287) ! dx(nb)      = x1 - x
+      lHdx      = iw(288) ! Hdx(nnQP)   = product of H with  x1 - x
+      lgd       = iw(289) ! gd(nnL)     = gradient difference
+      lgQP      = iw(290) ! gQP(ngQP)   = QP gradient
+      lgBS      = iw(291) ! gBS(mBS)    = BS components of g
+      lkBS      = iw(292) ! kBS(mBS)    = ( B  S ) list
+      lrg       = iw(293) ! rg (maxS)   = reduced gradient
+      lrg2      = iw(294) ! rg2(maxS)   = reduced gradient
+      lR        = iw(295) ! R(lenR)     = factor of Z'HZ
+      lscales   = iw(296) ! scales(nb)  = row and column scales
+      lgObj     = iw(297) ! gObj(nnObj) = Objective gradient
+      lx0       = iw(298) ! x0(nb)      = FP base point
+      lx        = iw(299) ! x(nb)       = the solution (x,s)     (SNOPTA only)
+      lx1       = iw(300) ! x1(nb)      = x + alpha*dx
+      lxBS      = iw(301) ! xBS(mBS)    = basics, superbasics
+      lxScaled  = iw(302) ! xScaled(n)  = copy of the scaled x
+*-->            = iw(303) !
+      lxPen     = iw(304) ! xPen(nnCon) = penalty params
+      lxQP      = iw(305) ! xQP(nb)     = QP solution
+      lxQP0     = iw(306) ! xQP0(nb)    = QP feasible pt
+*-->            = iw(307) !
+      liy       = iw(308) ! iy (nb)     =  integer work vector
+      liy1      = iw(309) ! iy1(nb)     =  integer work vector
+      liy2      = iw(310) ! iy2(nb)     =  integer work vector
+      ly        = iw(311) !  y (nb)     =  real work vector
+      ly1       = iw(312) !  y1(nb)     =  real work vector
+      ly2       = iw(313) !  y2(nb)     =  real work vector
+      ly3       = iw(314) !  y3(nb)     =  real work vector
+*-->            = iw(315) !
+      lfCon     = iw(316) ! fCon (nnCon) constraints at x
+      lfCon1    = iw(317) ! fCon1(nnCon) constraints at x1
+      lfCon2    = iw(318) ! fCon2(nnCon) work vector
+      lgConu    = iw(319) ! record of unknown derivatives and constants
+      lgCon     = iw(320) ! gCon (negCon) constraint gradients at x
+      lgCon1    = iw(321) ! gCon1(negCon) constraint gradients at x1
+      lgCon2    = iw(322) ! gCon2(negCon) work vector
+      lgObju    = iw(323) ! record of unknown derivatives
+      lgObj1    = iw(324) ! gObj1(nnObj) objective gradients at x1
+      lgObj2    = iw(325) ! gObj2(nnObj) work gObj
+*-->            = iw(326) !
+      lxN       = iw(327) ! xN(n)       = variables in natural order
+      lF        = iw(328) ! F(nF)       = user-defined F
+      lFmul     = iw(329) ! Fmul(nF)    = user-defined multipliers
+      lG        = iw(330) ! G (lenG)    = problem derivatives
+*-->            = iw(331) !
+*-->            = iw(332) !
+*-->            = iw(333) !
+*-->            = iw(334) !
+*-->            = iw(335) !
+      lFx       = iw(336) ! Fx (nnCon)  = F(x) + A(linear)x
+      lFv       = iw(337) ! Fv (nnCon ) = F(x) + A(linear)x - sN
+*-->            = iw(338) !
+      lgSave    = iw(339) ! gSave(nnObjU) copy of user-defined gObj
+*-->            = iw(340) !
+*-->            = iw(341) !
+*-->            = iw(342) !
+*-->            = iw(343) !
+*-->            = iw(344) !
+      lUx       = iw(345) ! Ux(nnL)      = product of U with x
+      lU0       = iw(346) ! Square root of initial BFGS diagonal
+      lHD       = iw(347) ! Diagonal of BFGS Hessian
+      lyCon     = iw(348) ! yCon (nnCon) = multipliers for fCon
+      lyCon1    = iw(349) ! yCon1(nnCon) = yCon at x1
+      lyCon2    = iw(350) ! yCon2(nnCon) = work copy of yCon
+      ldyCon    = iw(351) ! dyCon(nnCon) = yCon1 - yCon
+*-->            = iw(352) !
+      lr1       = iw(353) ! r1(maxS) SYMMLQ real work vector
+      lr2       = iw(354) ! r1(maxS) SYMMLQ real work vector
+      ls1       = iw(355) ! s1(maxS) SYMMLQ real work vector
+      ls2       = iw(356) ! s2(maxS) SYMMLQ real work vector
+      ls3       = iw(357) ! s3(maxS) SYMMLQ real work vector
+*-->            = iw(368) !
+      lNames    = iw(359) ! Names(nName), row and column names
+      lkeynm    = iw(360) ! keynm(lenh) = hash table keys
+*     ------------------------------------------------------------------
+*     iw(361)--iw(380) contain array addresses for LUsol.
+*     ------------------------------------------------------------------
+      maxLUi    = iw(361) ! max LU nonzeros in iw(*)
+      maxLUr    = iw(362) ! max LU nonzeros in rw(*)
+      ip        = iw(363) !
+      iq        = iw(364) !
+      lenc      = iw(365) !
+      lenri     = iw(366) !
+      locc      = iw(367) !
+      locr      = iw(368) !
+      iploc     = iw(369) !
+      iqloc     = iw(370) !
+      LUa       = iw(371) !
+*-->            = iw(372) !
+      indc      = iw(373) !
+      indr      = iw(374) !
+      cols      = iw(375) ! 3 new work arrays for lu1mxr
+      markc     = iw(376) ! passed to lu1fac and lu1fad
+      markr     = iw(377) ! from s2BLU
+
+*     ------------------------------------------------------------------
+*     iw(381)--iw(390) contain variables associated with the QN update.
+*     ------------------------------------------------------------------
+      QNmods    = iw(381) ! BFGS updates since last reset
+      QNskips   = iw(382) ! # of consecutive skipped updates
+*-->            = iw(383) !
+      nFlush    = iw(384) ! Iterations since last Hessian flush
+*-->            = iw(385) !
+      cgItns    = iw(386) ! Total number of symmlq iterations
+      cgItn     = iw(387) ! symmlq itns for the last QP minor itn
+*-->            = iw(388) !
+*-->            = iw(389) !
+*-->            = iw(390) !
+*     ------------------------------------------------------------------
+*     iw(391)--iw(400) contain array addresses for FM QN updates.
+*     ------------------------------------------------------------------
+      lU        = iw(391) ! U(lenU), full-memory BFGS Hessian H = U'U
+      lenU      = iw(392) !
+*     ------------------------------------------------------------------
+*     iw(401)--iw(410) contain array addresses for LM QN updates.
+*     ------------------------------------------------------------------
+      lS        = iw(401) ! sk's for BFGS products: (I + sk*vk')
+      lV        = iw(402) ! vk's for BFGS products: (I + sk*vk')
+*-->            = iw(403) !
+*-->            = iw(404) !
+*-->            = iw(405) !
+*-->            = iw(406) !
+*-->            = iw(407) !
+*-->            = iw(408) !
+*-->            = iw(409) !
+*-->            = iw(410) !
+*     ------------------------------------------------------------------
+*     iw(411)--iw(420) contain array addresses for exact Hessian.
+*     ------------------------------------------------------------------
+*-->            = iw(411) !
+*-->            = iw(412) !
+*     ------------------------------------------------------------------
+*     iw(421)--iw(450) information for solvers calling SNOPT
+*     ------------------------------------------------------------------
+      itn       = iw(421) ! Total iteration count
+      nMajor    = iw(422) ! Major iterations
+      maxS      = iw(423) ! max # of superbasics
+      iExit     = iw(424) ! INFO code from all solvers
+*-->            = iw(425) !
+*-->            = iw(426) !
+      jbInf1    = iw(427) ! Largest bound infeasibility (  scaled)
+      jdInf1    = iw(428) ! Largest dual  infeasibility (  scaled)
+      jbInf     = iw(429) ! Largest bound infeasibility (unscaled)
+      jdInf     = iw(430) ! Largest dual  infeasibility (unscaled)
+*-->            = iw(431) !
+*-->            = iw(432) !
+*-->            = iw(433) !
+*-->            = iw(434) !
+*-->  iIntf     = iw(435) ! snctrl
+*-->  iDisc     = iw(436) ! snctrl
+*-->  iCprt     = iw(437) ! snctrl
+*-->  iRefn     = iw(438) ! snctrl
+*-->  iRefL     = iw(439) ! snctrl
+*-->  ncOde     = iw(440) ! snctrl
+*-->  ncAlg     = iw(441) ! snctrl
+*-->  nY        = iw(442) ! snctrl
+*-->  nU        = iw(443) ! snctrl
+*-->  nP        = iw(444) ! snctrl
+*-->  nC        = iw(445) ! snctrl
+*-->  nPhs      = iw(446) ! snctrl
+*-->            = iw(447) !
+*-->            = iw(448) !
+*-->            = iw(449) !
+*-->            = iw(450) !
+*     ------------------------------------------------------------------
+*     iw(451)--iw(499) timing information
+*     ------------------------------------------------------------------
+      numt( 1)  = iw(451) ! Input time
+      numt( 2)  = iw(452) ! Solve time
+      numt( 3)  = iw(453) ! Output time
+      numt( 4)  = iw(454) ! Constraint functions
+      numt( 5)  = iw(455) ! Nonlinear objective
+      numt( 6)  = iw(456) ! not used
+      numy( 7)  = iw(457) ! not used
+      numt( 8)  = iw(458) ! not used
+      numt( 9)  = iw(459) ! not used
+      numt(10)  = iw(460) ! not used
+*     ==================================================================
+*     cw(1)--cw(50) contain details of the solver.
+*     ------------------------------------------------------------------
+      solver    = cw(  1) ! 'SNOPTA  ', 'SNOPTB  ', 'SNOPTC  ', etc
+*     ==================================================================
+*     Character*8  workspace.
+*     cw(51)--cw(150): optional parameters set via the specs file.
+*     ==================================================================
+      mProb     = cw( 51) ! Problem name
+      mObj      = cw( 52) ! Objective name
+      mRhs      = cw( 53) ! rhs name
+      mRng      = cw( 54) ! range name
+      mBnd      = cw( 55) ! bounds name
+*-->            = cw( 56) !
+*-->            = cw( 57) !
+*-->            = cw( 58) !
+*-->            = cw( 59) !
+*-->            = cw( 60) !
+*     ==================================================================

@@ -1,0 +1,61 @@
+#-----------------------------------------------------------------------
+# Submakefile :: src
+#-----------------------------------------------------------------------
+
+ifeq ($(blas),yes)
+  BLAS     =
+  BLAS_LO  =
+else
+  BLAS     = snblas
+  BLAS_LO  = $(BLAS:%=$(OBJDIR)/%.lo)
+endif
+
+SNPRINT    = sn03prnt
+SNPRINT_LO = $(SNPRINT:%=$(OBJDIR)/%.lo)
+
+SQOPT      = sqopt    snoptq   sq02lib  sn04wrap sn04stats sn10mach\
+             sn12ampl sn17util sn20amat sn25bfac sn27lu            \
+             sn30spec sn35mps  sn37wrap sn40bfil sn50lp    sn55qp  \
+             sn56qncg sn57qopt sn65rmod
+SQOPT_LO   = $(SQOPT:%=$(OBJDIR)/%.lo)
+
+SNOPT      = sqopt    snopta   snoptb   snoptc   \
+             snoptq   npopt    snctrl            \
+             sq02lib  sn02lib  np02lib  sn04wrap sn04stats         \
+             sn05wrpa sn05wrpb sn05wrpc sn05wrpn sn10mach          \
+             sn12ampl sn17util sn20amat sn25bfac sn27lu            \
+             sn30spec sn35mps  sn37wrap sn40bfil sn50lp    sn55qp  \
+             sn56qncg sn57qopt sn60srch sn65rmod sn70nobj  sn80ncon\
+             sn82qn   sn83bfgs sn87sopt
+
+SNOPT_LO   = $(SNOPT:%=$(OBJDIR)/%.lo)
+SQSRC_LO   = $(BLAS_LO) $(SNPRINT_LO) $(SQOPT_LO)
+SNSRC_LO   = $(BLAS_LO) $(SNPRINT_LO) $(SNOPT_LO)
+
+#-----------------------------------------------------------------------
+
+src_snopt: mod_dir obj_dir $(SNSRC_LO)
+src_sqopt: mod_dir obj_dir $(SQSRC_LO)
+clean: clean_snopt
+veryclean: clean_snopt
+distclean: clean_snopt
+
+#-----------------------------------------------------------------------
+
+obj_dir: $(top_builddir)
+	if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi
+
+$(OBJDIR)/%.lo: $(SRCDIR)/%.f90
+	$(COMPILE_F) -c $(FCFLAGS) $(MODFLAGS) $< -o $@
+
+$(OBJDIR)/%.lo: $(SRCDIR)/%.f
+	$(COMPILE_F) $(FCFLAGS) -c $< -o $@
+
+#-----------------------------------------------------------------------
+
+clean_snopt:
+	$(CLEAN) rm -f $(OBJDIR)/*.lo
+
+#-----------------------------------------------------------------------
+
+.PHONY: src_snopt src_sqopt clean_snopt

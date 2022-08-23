@@ -1,0 +1,160 @@
+*     s2kbs
+
+      integer            xFirst,     sFirst
+      parameter         (xFirst = 0, sFirst = 1)
+
+*     s7QN (QPmode)
+
+      integer            QPChol,     CG,     QNCG
+      parameter         (QPChol = 0, CG = 1, QNCG = 2)
+
+      integer            Okay
+      parameter         (Okay=0)
+
+      integer            Optm,  Infs,  Unbd,  Itmx,  Weak
+      parameter         (Optm=0,Infs=1,Unbd=2,Itmx=3,Weak=4)
+
+      integer            BigS,  Indf,  BgZg,   badZ,   badB
+      parameter         (BigS=5,Indf=6,BgZg=11,badZ=14,badB=10)
+
+*     s5fixS
+
+      integer            Fix,     Free
+      parameter         (Fix = 0, Free = 1)
+
+*     s2Bfac
+
+      integer            TPP,     TRP,     TCP,     TDP
+      parameter         (TPP = 0, TRP = 1, TCP = 2, TDP = 3 )
+
+*     s2tols
+
+      integer            DefTol,     RedTol,     MinTol,     RstTol
+      parameter         (DefTol = 0, RedTol = 1, MinTol = 2, RstTol = 3)
+
+*     snopt
+
+      integer            COLD,       BASIS,      WARM,       HOT
+      parameter         (COLD   = 0, BASIS  = 1, WARM   = 2, HOT    = 3)
+
+*     snopt (HDInfo)
+
+      integer            HUnset,     HNorml,     HDiag,      HUnit
+      parameter         (HUnset =-1, HNorml = 0, HDiag  = 1, HUnit  = 2)
+
+*     s1open
+
+      integer            DefltF,     OpenF,      StdIn
+      parameter         (DefltF = 0, OpenF  = 1, StdIn  = 2)
+
+*     s2Bprd
+
+      integer            Normal,     Transp
+      parameter         (Normal = 0, Transp = 1)
+
+*     s2amat
+
+      integer            RowTyp,     Stats
+      parameter        ( Rowtyp = 0, Stats  = 1)
+
+*     s2Scal
+
+      integer            Scale,      UnScal
+      parameter         (Scale  = 0, UnScal = 1)
+
+*     s2Bfac
+
+      integer            B,          BR,         BS        , BT
+      parameter         (B      = 0, BR     = 1, BS     = 2, BT     = 3)
+
+*     s2Bsol
+
+      integer            WithL,      WithB,      WithBt
+      parameter         (WithL  = 0, WithB  = 1, WithBt = 2)
+
+*     s4newB
+
+      integer            Freq,       Wrap
+      parameter         (Freq   = 0, Wrap   = 1)
+
+*     s5hs
+
+      integer            Intern,     Extern
+      parameter         (Intern = 0, Extern = 1)
+
+*     s5dgen
+
+      integer            Init,       Optml,      Cycle
+      parameter         (Init   = 0, Optml  = 1, Cycle = 2)
+
+*     s6Rsol
+
+      integer            WithR,      WithRt
+      parameter         (WithR  = 0, WithRt = 1)
+
+*     s5LPQP
+
+      integer            FP,    LP,    QP,    FPE,    FPS,    QPS
+      parameter         (FP =0, LP =1, QP =2, FPE =3, FPS =4, QPS =5)
+
+      integer            QPP
+      parameter         (QPP=6)
+
+*     s5setx
+
+      integer            Resetx,     GetRes
+      parameter         (Resetx = 0, GetRes = 1)
+
+*     s5BSx
+
+      integer            xtoxBS,     xBStox
+      parameter         (xtoxBS = 0, xBStox = 1)
+
+*     s8Hfac, s8Hmod
+
+      integer            NoPiv,      Piv
+      parameter         (NoPiv  = 0, Piv    = 1)
+
+*     subopt
+
+      integer            No,         Yes
+      parameter         (No     =-1, Yes    = 0)
+
+      integer            NO,         YES
+      parameter         (NO     = 0, YES    = 1)
+
+      logical            yes,             no
+      parameter         (yes    = .true., no  = .false.)
+
+*     s8SQP
+
+      integer            SetWt,      IncWt
+      parameter         (SetWt  = 0, IncWt = 1)
+
+*     s8Load
+
+      integer            Load,       UnLoad
+      parameter         (Load   = 0, UnLoad = 1)
+
+*     s8solv, lvlHes
+
+      integer            LM   ,      FM,         Exact
+      parameter         (LM     = 0, FM     = 1, Exact  = 2)
+
+*     snprnt,  Info(6)
+
+      integer            iQNtyp,     iModfy,     iStep
+      parameter         (iQNtyp = 1, iModfy = 2, iStep  = 3)
+
+      integer            iQPfea,     iQPerr,     iFDiff
+      parameter         (iQPfea = 4, iQPerr = 5, iFDiff = 6)
+
+*     s5FixX
+
+      integer            xBound,     xMove
+      parameter         (xBound = 0, xMove = 1)
+
+*     s5Rsng, s5QP
+
+      integer            INDEF,      PSDEF,     PDEF
+      parameter         (INDEF = -1, PSDEF = 0, PDEF  = 1)
